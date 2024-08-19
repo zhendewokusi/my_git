@@ -73,11 +73,19 @@ void commit(const char *message) {
 	char commit_path[128];
 	sprintf(commit_path, ".git/objects/%08x", commit_hash);
 	FILE *commit_file = fopen(commit_path, "w");
+	if (!commit_file) {
+		perror("Failed to open commit file");
+		return;
+	}
 	fprintf(commit_file, "%s", commit_content);
 	fclose(commit_file);
 
 	// 更新当前分支的指针
 	FILE *head = fopen(".git/refs/heads/master", "a");
+	if (!head) {
+		perror("Failed to update head");
+		return;
+	}
 	fprintf(head, "%08x\n", commit_hash);
 	fclose(head);
 
@@ -85,8 +93,13 @@ void commit(const char *message) {
 
 	// 清空 index 文件
 	index_file = fopen(".git/index", "w");
+	if (!index_file) {
+		perror("Failed to clear index file");
+		return;
+	}
 	fclose(index_file);
 }
+
 
 void log_history() {
 	FILE *head = fopen(".git/refs/heads/master", "r");
