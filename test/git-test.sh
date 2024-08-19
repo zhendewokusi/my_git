@@ -24,22 +24,22 @@ function test_2() {
     rm -rf test_git
     mkdir test_git 
     cd test_git
-    ./git init
+    ../git init
     check_ret "git init"
     ls .git
     check_ret "ls .git"
     echo -e "AAAAA11111\nBBBBB11111\n" > a.txt
-    ./git add a.txt
+    ../git add a.txt
     check_ret "git add a.txt"
-    ./git commit -m "init commit"
+    ../git commit -m "init commit"
     check_ret "git commit -m \"init commit\""
     echo -e "AAAAA11111\nBBBBB11111\nCCCCC22222" > a.txt
-    ./git diff a.txt
-    ./git add a.txt
+    ../git diff a.txt
+    ../git add a.txt
     check_ret "git add a.txt"
-    ./git commit -m "update a.txt"
+    ../git commit -m "update a.txt"
     check_ret "git commit -m \"update a.txt\""
-    ./git reflog
+    ../git reflog
     check_ret "git reflog"
     cd ..
     echo "==== FINISH TEST 2 ===="
